@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
@@ -14,23 +14,17 @@ import {
 } from "../features/filterJobSlice";
 
 const FilterJob = () => {
-    const dispatch = useDispatch();
-    const {
-      role,
-      numberOfEmployees,
-      jobType,
-      experience,
-      techStack,
-      minPay,
-      companyName,
-    } = useSelector((state) => state.filterJobSlice);
-//   const [role, setRole] = useState([]);
-//   const [selectedNoOfEmployees, setSelectedNoOfEmployees] = useState([]);
-//   const [selectedExperience, setSelctedExperience] = useState();
-//   const [selectedJobMode, setSelctedJobMode] = useState([]);
-//   const [selectedTechStack, setSelctedTechStack] = useState([]);
-//   const [selectedMinBasePay, setSelctedMinBasePay] = useState();
-//   const [companyName, setCompanyName] = useState("");
+  const dispatch = useDispatch();
+  const {
+    role,
+    numberOfEmployees,
+    jobType,
+    experience,
+    techStack,
+    minPay,
+    companyName,
+  } = useSelector((state) => state.filterJobSlice);
+
   return (
     <Box
       sx={{
@@ -42,6 +36,7 @@ const FilterJob = () => {
         margin: "0rem 2rem",
       }}
     >
+      {/* // Autocomplete for roles */}
       <Autocomplete
         multiple
         id="size-small-outlined"
@@ -50,10 +45,8 @@ const FilterJob = () => {
         groupBy={(option) => option.category}
         value={role}
         getOptionLabel={(option) => option.title}
-        //   defaultValue={[top100Films[13]]}
         onChange={(event, newValue) => {
-          console.log(role, newValue);
-          dispatch(setRole(newValue ));
+          dispatch(setRole(newValue));
         }}
         filterSelectedOptions
         renderInput={(params) => (
@@ -65,6 +58,7 @@ const FilterJob = () => {
           />
         )}
       />
+      {/* AutoComplete for numberOfEmployees */}
       <Autocomplete
         multiple
         id="size-small-outlined"
@@ -73,11 +67,8 @@ const FilterJob = () => {
         value={numberOfEmployees}
         getOptionLabel={(option) => option.title}
         onChange={(event, newValue) => {
-            console.log(numberOfEmployees);
-            console.log(newValue);
-          dispatch(setNumberOfEmployees(newValue ));
+          dispatch(setNumberOfEmployees(newValue));
         }}
-        //   defaultValue={[top100Films[13]]}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField
@@ -92,20 +83,16 @@ const FilterJob = () => {
           />
         )}
       />
+      {/* AutoComplete for experience */}
       <Autocomplete
-        //   multiple
         id="size-small-outlined"
         size="small"
         options={experienceList}
         getOptionLabel={(option) => option.title}
         value={experience}
         onChange={(event, newValue) => {
-            console.log(experience);
-            console.log(newValue)
-          dispatch(setExperience(newValue ));
+          dispatch(setExperience(newValue));
         }}
-        //   defaultValue={[top100Films[13]]}
-        //   filterSelectedOptions
         renderInput={(params) => (
           <TextField
             {...params}
@@ -115,6 +102,7 @@ const FilterJob = () => {
           />
         )}
       />
+      {/* AutoComplete for jobType */}
       <Autocomplete
         multiple
         id="size-small-outlined"
@@ -123,10 +111,8 @@ const FilterJob = () => {
         value={jobType}
         getOptionLabel={(option) => option.title}
         onChange={(event, newValue) => {
-          console.log(jobMode);
-          dispatch(setJobType(newValue ));
+          dispatch(setJobType(newValue));
         }}
-        //   defaultValue={[top100Films[13]]}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField
@@ -137,6 +123,7 @@ const FilterJob = () => {
           />
         )}
       />
+      {/* AutoComplete for techStack */}
       <Autocomplete
         multiple
         id="size-small-outlined"
@@ -145,10 +132,8 @@ const FilterJob = () => {
         value={techStack}
         getOptionLabel={(option) => option.title}
         onChange={(event, newValue) => {
-          console.log(techStack);
-          dispatch(setTechStack(newValue ));
+          dispatch(setTechStack(newValue));
         }}
-        //   defaultValue={[top100Films[13]]}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField
@@ -159,14 +144,14 @@ const FilterJob = () => {
           />
         )}
       />
+      {/* AutoComplete for minBasePay */}
       <Autocomplete
         id="size-small-outlined"
         size="small"
         options={minBasePay}
         value={minPay}
         onChange={(event, newValue) => {
-          console.log(minPay);
-          dispatch(setMinPay(newValue ));
+          dispatch(setMinPay(newValue));
         }}
         getOptionLabel={(option) => option.title}
         renderInput={(params) => (
@@ -178,6 +163,7 @@ const FilterJob = () => {
           />
         )}
       />
+      {/* TextField for companyName */}
       <TextField
         id="outlined-size-small"
         size="small"
@@ -185,9 +171,7 @@ const FilterJob = () => {
         variant="outlined"
         placeholder="Search Company Name"
         value={companyName}
-        onChange={(e) =>
-          dispatch(setCompanyName(e.target.value ))
-        }
+        onChange={(e) => dispatch(setCompanyName(e.target.value))}
       />
     </Box>
   );
@@ -195,6 +179,7 @@ const FilterJob = () => {
 
 export default FilterJob;
 
+// roles, techStackList, experienceList, jobMode, noOfEmployees, minBasePay
 const roles = [
   { title: "Backend", category: "Engineering" },
   { title: "Frontend", category: "Engineering" },

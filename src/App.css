@@ -47,6 +47,57 @@
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;;
 }
+.jobDescriptionText{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-transform: capitalize;
+}
+.jobDescriptionJD{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  height: 100%;
+  
+}
+.jobDescriptionJDContainer{
+  padding: 0.2rem;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  
+}
+.modalClass{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  background-color: white;
+  box-shadow: 0px 0px 4px;
+  border-radius: 10px;
+  padding: 16px;
+  z-index: 1000;
+}
+.modalButton {
+  display: flex;
+  justify-content: end;
+  margin-top: 0.2rem;
+  width: 100%;
+}
+
+.loadingSpinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noDatafound{
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 100vw;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -54,5 +105,24 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .jobList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+}
+
+@media screen and (max-width: 768px) {
+  .jobList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .jobList {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

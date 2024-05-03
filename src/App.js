@@ -23,15 +23,13 @@ function App() {
     companyName,
     isFilterApplied,
   } = useSelector((state) => state.filterJobSlice);
-  useEffect(() => {
-    dispatch(jobSearch(skip));
-  }, [skip]);
-  useEffect(() => {
-    if (job) {
-      setJobsList((prev) => [...prev, ...job]);
-    }
-  }, [job]);
-  useEffect(() => {
+
+  const handleSkip = () => {
+    setSkip((prev) => prev + limit);
+  };
+
+  // Filter the job list
+  const handleFilterJob = () => {
     let filterJobList = jobsList;
     if (jobsList.length > 0) {
       if (role.length > 0) {
@@ -48,9 +46,11 @@ function App() {
           return job.minExp == experience?.title;
         });
       }
-      if(companyName){
+      if (companyName) {
         filterJobList = filterJobList.filter((job) => {
-          return job.companyName.toLowerCase().includes(companyName.toLowerCase());
+          return job.companyName
+            .toLowerCase()
+            .includes(companyName.toLowerCase());
         });
       }
       if (minPay != null) {
@@ -62,19 +62,17 @@ function App() {
       if (numberOfEmployees.length > 0) {
         filterJobList = filterJobList.filter((job) => {
           return false;
-        })
+        });
       }
-      
+
       if (jobType.length > 0) {
         const jobTypeTitles = jobType.map((r) => r.title.toLowerCase());
         filterJobList = filterJobList.filter((job) => {
           if (job?.location.toLowerCase() == "remote") {
             return jobTypeTitles.includes("remote");
-          }
-          else if (job?.location.toLowerCase() == "hybrid") {
+          } else if (job?.location.toLowerCase() == "hybrid") {
             return jobTypeTitles.includes("hybrid");
-          }
-          else if (job?.location) {
+          } else if (job?.location) {
             return jobTypeTitles.includes("onsite");
           }
           return false;
@@ -89,6 +87,23 @@ function App() {
     }
     console.log(filterJobList);
     setFilteredJobList(filterJobList);
+  };
+
+  // Fetch the job list, dispatch the action whenever skip changes
+  useEffect(() => {
+    dispatch(jobSearch(skip));
+  }, [skip]);
+
+  // Update the job list whenever new job is fetched
+  useEffect(() => {
+    if (job) {
+      setJobsList((prev) => [...prev, ...job]);
+    }
+  }, [job]);
+
+  // Filter the job list whenever filter is applied
+  useEffect(() => {
+    handleFilterJob();
   }, [
     role,
     numberOfEmployees,
@@ -100,10 +115,6 @@ function App() {
     jobsList,
     isFilterApplied,
   ]);
-
-  const handleSkip = () => {
-    setSkip((prev) => prev + limit);
-  };
 
   return (
     <div className="App">

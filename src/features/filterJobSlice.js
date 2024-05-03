@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// global state for filter job
 export const filterJobSlice = createSlice({
     name: "filterJob",
     initialState: {
