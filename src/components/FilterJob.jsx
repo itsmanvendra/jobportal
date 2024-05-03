@@ -2,15 +2,35 @@ import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setRole,
+  setNumberOfEmployees,
+  setJobType,
+  setExperience,
+  setTechStack,
+  setMinPay,
+  setCompanyName,
+} from "../features/filterJobSlice";
 
 const FilterJob = () => {
-  const [role, setRole] = useState([]);
-  const [selectedNoOfEmployees, setSelectedNoOfEmployees] = useState([]);
-  const [selectedExperience, setSelctedExperience] = useState();
-  const [selectedJobMode, setSelctedJobMode] = useState([]);
-  const [selectedTechStack, setSelctedTechStack] = useState([]);
-  const [selectedMinBasePay, setSelctedMinBasePay] = useState();
-  const [companyName, setCompanyName] = useState("");
+    const dispatch = useDispatch();
+    const {
+      role,
+      numberOfEmployees,
+      jobType,
+      experience,
+      techStack,
+      minPay,
+      companyName,
+    } = useSelector((state) => state.filterJobSlice);
+//   const [role, setRole] = useState([]);
+//   const [selectedNoOfEmployees, setSelectedNoOfEmployees] = useState([]);
+//   const [selectedExperience, setSelctedExperience] = useState();
+//   const [selectedJobMode, setSelctedJobMode] = useState([]);
+//   const [selectedTechStack, setSelctedTechStack] = useState([]);
+//   const [selectedMinBasePay, setSelctedMinBasePay] = useState();
+//   const [companyName, setCompanyName] = useState("");
   return (
     <Box
       sx={{
@@ -32,8 +52,8 @@ const FilterJob = () => {
         getOptionLabel={(option) => option.title}
         //   defaultValue={[top100Films[13]]}
         onChange={(event, newValue) => {
-          console.log(role);
-          setRole(newValue);
+          console.log(role, newValue);
+          dispatch(setRole(newValue ));
         }}
         filterSelectedOptions
         renderInput={(params) => (
@@ -50,11 +70,12 @@ const FilterJob = () => {
         id="size-small-outlined"
         size="small"
         options={noOfEmployees}
-        value={selectedNoOfEmployees}
+        value={numberOfEmployees}
         getOptionLabel={(option) => option.title}
         onChange={(event, newValue) => {
-          console.log(selectedNoOfEmployees);
-          setSelectedNoOfEmployees(newValue);
+            console.log(numberOfEmployees);
+            console.log(newValue);
+          dispatch(setNumberOfEmployees(newValue ));
         }}
         //   defaultValue={[top100Films[13]]}
         filterSelectedOptions
@@ -64,7 +85,7 @@ const FilterJob = () => {
             label="No of Employees"
             sx={{ minWidth: "200px" }}
             placeholder={
-              selectedNoOfEmployees && selectedNoOfEmployees?.length > 0
+              numberOfEmployees && numberOfEmployees?.length > 0
                 ? ""
                 : "No of Employees"
             }
@@ -75,12 +96,13 @@ const FilterJob = () => {
         //   multiple
         id="size-small-outlined"
         size="small"
-        options={experience}
+        options={experienceList}
         getOptionLabel={(option) => option.title}
-        value={selectedExperience}
+        value={experience}
         onChange={(event, newValue) => {
-          console.log(selectedExperience);
-          setSelctedExperience(newValue);
+            console.log(experience);
+            console.log(newValue)
+          dispatch(setExperience(newValue ));
         }}
         //   defaultValue={[top100Films[13]]}
         //   filterSelectedOptions
@@ -89,7 +111,7 @@ const FilterJob = () => {
             {...params}
             sx={{ minWidth: "200px" }}
             label="Experience"
-            placeholder={selectedExperience ? "" : "Experience"}
+            placeholder={experience ? "" : "Experience"}
           />
         )}
       />
@@ -98,11 +120,11 @@ const FilterJob = () => {
         id="size-small-outlined"
         size="small"
         options={jobMode}
-        value={selectedJobMode}
+        value={jobType}
         getOptionLabel={(option) => option.title}
         onChange={(event, newValue) => {
-          console.log(selectedJobMode);
-          setSelctedJobMode(newValue);
+          console.log(jobMode);
+          dispatch(setJobType(newValue ));
         }}
         //   defaultValue={[top100Films[13]]}
         filterSelectedOptions
@@ -111,9 +133,7 @@ const FilterJob = () => {
             {...params}
             sx={{ minWidth: "100px" }}
             label="Remote"
-            placeholder={
-              selectedJobMode && selectedJobMode?.length > 0 ? "" : "Remote"
-            }
+            placeholder={jobType && jobType?.length > 0 ? "" : "Remote"}
           />
         )}
       />
@@ -121,12 +141,12 @@ const FilterJob = () => {
         multiple
         id="size-small-outlined"
         size="small"
-        options={techStack}
-        value={selectedTechStack}
+        options={techStackList}
+        value={techStack}
         getOptionLabel={(option) => option.title}
         onChange={(event, newValue) => {
-          console.log(selectedTechStack);
-          setSelctedTechStack(newValue);
+          console.log(techStack);
+          dispatch(setTechStack(newValue ));
         }}
         //   defaultValue={[top100Films[13]]}
         filterSelectedOptions
@@ -135,11 +155,7 @@ const FilterJob = () => {
             {...params}
             sx={{ minWidth: "200px" }}
             label="Tech Stack"
-            placeholder={
-              selectedTechStack && selectedTechStack?.length > 0
-                ? ""
-                : "Tech Stack"
-            }
+            placeholder={techStack && techStack?.length > 0 ? "" : "Tech Stack"}
           />
         )}
       />
@@ -147,10 +163,10 @@ const FilterJob = () => {
         id="size-small-outlined"
         size="small"
         options={minBasePay}
-        value={selectedMinBasePay}
+        value={minPay}
         onChange={(event, newValue) => {
-          console.log(selectedMinBasePay);
-          setSelctedMinBasePay(newValue);
+          console.log(minPay);
+          dispatch(setMinPay(newValue ));
         }}
         getOptionLabel={(option) => option.title}
         renderInput={(params) => (
@@ -158,7 +174,7 @@ const FilterJob = () => {
             {...params}
             sx={{ minWidth: "200px" }}
             label="Min Base Pay"
-            placeholder={selectedMinBasePay ? "" : "Min Base Pay"}
+            placeholder={minPay ? "" : "Min Base Pay"}
           />
         )}
       />
@@ -167,9 +183,11 @@ const FilterJob = () => {
         size="small"
         label="Company Name"
         variant="outlined"
-              placeholder="Search Company Name"
-              value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
+        placeholder="Search Company Name"
+        value={companyName}
+        onChange={(e) =>
+          dispatch(setCompanyName(e.target.value ))
+        }
       />
     </Box>
   );
@@ -248,7 +266,7 @@ const roles = [
   },
 ];
 
-const techStack = [
+const techStackList = [
   { title: "Python" },
   { title: "Java" },
   { title: "C++" },
@@ -265,7 +283,7 @@ const techStack = [
   { title: "Flask" },
 ];
 
-const experience = [
+const experienceList = [
   { title: 1 },
   { title: 2 },
   { title: 3 },

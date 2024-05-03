@@ -22,40 +22,58 @@ const JobList = ({ handleSkip, jobsList }) => {
     if (node) observer.current.observe(node);
   }, []);
 
-
-  return (
-    <Box className="jobList">
-      {loading && jobsList.length == 0 && (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      )}
-      {error && <Box>{error}</Box>}
-          {jobsList && jobsList?.length > 0 ? (
-              jobsList?.map((jobDes, idx) => {
-                  if (idx == jobsList?.length - 1) {
-                      return (
-                          <Box ref={containerRef}>
-                              <JobDescription jobDes={jobDes} />
-                          </Box>
-                      );
-                  }
-                  return <JobDescription jobDes={jobDes} />;
-              })
-          ) : (
-              !loading && !error && (<Box>No Jobs Found</Box>)
-          )}
-        
-      
-      {loading &&
-        jobsList.length >
-          0 && (
-            <Box sx={{ display: "flex" }}>
+    return (
+      <>
+        <Box className="jobList">
+          {loading && jobsList.length == 0 && (
+            <Box sx={{ width: "100vw" }}>
               <CircularProgress />
             </Box>
           )}
-    </Box>
-  );
+          {error && (
+            <Box
+              sx={{ width: "100vw", fontSize: "1.5rem", fontWeight: "bold" }}
+            >
+              {error}
+            </Box>
+          )}
+          {jobsList && jobsList?.length > 0
+            ? jobsList?.map((jobDes, idx) => {
+                if (idx == jobsList?.length - 1) {
+                  return (
+                    <Box ref={containerRef}>
+                      <JobDescription jobDes={jobDes} />
+                    </Box>
+                  );
+                }
+                return <JobDescription jobDes={jobDes} />;
+              })
+            : !loading &&
+              !error && (
+                <Box
+                  sx={{
+                    width: "100vw",
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  No Jobs Found
+                </Box>
+              )}
+        </Box>
+        {loading && jobsList.length > 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
+      </>
+    );
 };
 
 export default JobList;

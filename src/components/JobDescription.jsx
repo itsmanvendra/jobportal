@@ -138,7 +138,7 @@ const JobDescription = ({ jobDes }) => {
       <Button
         variant="contained"
         sx={{ margin: "0.2rem", width: "60%", marginBottom: "0rem" }}
-        onClick={window.open(jobDes?.jdLink)}
+        // onClick={window.open(jobDes?.jdLink)}
       >
         Apply <OpenInNewIcon fontSize="10px" sx={{ paddingLeft: "0.4rem" }} />
       </Button>
