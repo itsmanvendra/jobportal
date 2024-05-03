@@ -108,6 +108,7 @@
   }
 }
 
+ 
 @media screen and (max-width: 1024px){
   .jobList {
     grid-template-columns: repeat(3, 1fr);
@@ -118,6 +119,9 @@
 @media screen and (max-width: 768px) {
   .jobList {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .modalClass{
+    width: 85%;
   }
 }
 
